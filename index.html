@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Site educativo sobre racismo: entenda, reflita e combata.">
+<title>Consciência Negra | Racismo: Entender para Combater</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET E VARIÁVEIS ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --preto: #0d0d0d;
+    --preto-suave: #1a1a1a;
+    --cinza-escuro: #2a2a2a;
+    --cinza: #6b6b6b;
+    --cinza-claro: #f5f5f5;
+    --branco: #ffffff;
+    --dourado: #f5c542;
+    --dourado-escuro: #d4a017;
+    --vermelho: #c0392b;
+    --verde: #27ae60;
+    --sombra: 0 10px 30px rgba(0,0,0,0.1);
+    --sombra-forte: 0 20px 50px rgba(0,0,0,0.2);
+    --transicao: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.7;
+    color: var(--preto);
+    background: var(--branco);
+    overflow-x: hidden;
+}
+
+/* ============ BARRA DE PROGRESSO ============ */
+.progress-bar {
+    position: fixed; top: 0; left: 0;
+    height: 4px; width: 0%;
+    background: linear-gradient(90deg, var(--dourado), var(--dourado-escuro));
+    z-index: 9999;
+    transition: width 0.1s linear;
+}
+
+/* ============ NAVBAR ============ */
+header {
+    position: fixed; top: 0; width: 100%;
+    z-index: 1000;
+    background: rgba(13, 13, 13, 0.95);
+    backdrop-filter: blur(10px);
+    transition: var(--transicao);
+}
+
+header.rolado { box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 5%; max-width: 1400px; margin: 0 auto;
+}
+
+.logo {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: var(--dourado); font-size: 1.4rem; font-weight: 700;
+    text-decoration: none; letter-spacing: 1px;
+}
+
+.logo-icon { font-size: 1.6rem; }
+
+.nav-links { display: flex; list-style: none; gap: 1.5rem; }
+
+.nav-links a {
+    color: var(--branco); text-decoration: none;
+    font-size: 0.9rem; font-weight: 400;
+    position: relative; padding: 0.5rem 0;
+    transition: var(--transicao);
+}
+
+.nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: var(--dourado);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--dourado); }
+.nav-links a:hover::after { width: 100%; }
+
+.menu-toggle {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 5px;
+}
+
+.menu-toggle span {
+    width: 25px; height: 3px; background: var(--dourado);
+    transition: var(--transicao); border-radius: 2px;
+}
+
+.menu-toggle.ativo span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.menu-toggle.ativo span:nth-child(2) { opacity: 0; }
+.menu-toggle.ativo span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+/* ============ HERO ============ */
+.hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 8rem 5% 5rem;
+    background: linear-gradient(135deg, #0d0d0d 0%, #2a1f1a 50%, #3d2b1f 100%);
+    color: var(--branco);
+    position: relative; overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute; inset: 0;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(245, 197, 66, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(245, 197, 66, 0.08) 0%, transparent 50%);
+    animation: pulsoBg 8s ease-in-out infinite;
+}
+
+@keyframes pulsoBg {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.hero-content {
+    max-width: 900px; position: relative; z-index: 2;
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-tag {
+    display: inline-block; padding: 0.4rem 1.2rem;
+    background: rgba(245, 197, 66, 0.15);
+    border: 1px solid var(--dourado);
+    color: var(--dourado); border-radius: 50px;
+    font-size: 0.85rem; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    color: var(--dourado); letter-spacing: 6px;
+    margin-bottom: 0.5rem; text-transform: uppercase;
+    font-weight: 900;
+    text-shadow: 0 0 40px rgba(245, 197, 66, 0.3);
+}
+
+.subtitulo {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    margin-bottom: 2rem; color: #ddd; font-weight: 300;
+}
+
+.hero-texto {
+    font-size: 1.05rem; margin-bottom: 2.5rem;
+    color: #bbb; max-width: 700px;
+    margin-left: auto; margin-right: auto;
+}
+
+.hero-botoes {
+    display: flex; gap: 1rem; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 3.5rem;
+}
+
+.btn {
+    display: inline-block; padding: 1rem 2.5rem;
+    text-decoration: none; border-radius: 50px;
+    font-weight: 600; font-size: 0.95rem;
+    transition: var(--transicao); cursor: pointer;
+    border: 2px solid transparent; font-family: inherit;
+}
+
+.btn-primario { background: var(--dourado); color: var(--preto); }
+.btn-primario:hover {
+    background: var(--branco); transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(245, 197, 66, 0.4);
+}
+
+.btn-secundario {
+    background: transparent; color: var(--dourado);
+    border: 2px solid var(--dourado);
+}
+.btn-secundario:hover {
+    background: var(--dourado); color: var(--preto);
+    transform: translateY(-3px);
+}
+
+.hero-stats {
+    display: flex; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(245, 197, 66, 0.2);
+}
+
+.hero-stats > div {
+    display: flex; flex-direction: column; align-items: center;
+}
+
+.hero-stats strong {
+    font-size: 2rem; color: var(--dourado); font-weight: 700;
+}
+
+.hero-stats span {
+    font-size: 0.85rem; color: #999;
+    text-transform: uppercase; letter-spacing: 1px;
+}
+
+.scroll-indicator {
+    position: absolute; bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    width: 25px; height: 40px;
+    border: 2px solid var(--dourado); border-radius: 15px;
+    display: flex; justify-content: center; padding-top: 8px;
+}
+
+.scroll-indicator span {
+    width: 4px; height: 8px; background: var(--dourado);
+    border-radius: 2px; animation: scrollDown 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(10px); opacity: 0.3; }
+}
+
+/* ============ SEÇÕES GERAIS ============ */
+.secao { padding: 6rem 5%; background: var(--branco); }
+.secao-cinza { background: var(--cinza-claro); }
+.secao-escura { background: var(--preto-suave); color: var(--branco); }
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+.section-tag {
+    display: inline-block; padding: 0.3rem 1rem;
+    background: rgba(245, 197, 66, 0.15);
+    color: var(--dourado-escuro); border-radius: 50px;
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.secao-escura .section-tag { color: var(--dourado); }
+
+.secao h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 1rem; color: var(--preto);
+    text-align: center; font-weight: 700;
+}
+
+.secao-escura h2 { color: var(--dourado); }
+
+.secao h2::after {
+    content: ''; display: block;
+    width: 80px; height: 4px;
+    background: var(--dourado);
+    margin: 1rem auto 0; border-radius: 2px;
+}
+
+.intro {
+    text-align: center; margin-bottom: 3.5rem;
+    font-size: 1.05rem; color: var(--cinza);
+    max-width: 700px; margin-left: auto; margin-right: auto;
+}
+
+.secao-escura .intro { color: #999; }
+
+/* ============ ANIMAÇÕES SCROLL ============ */
+.animar {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animar.visivel { opacity: 1; transform: translateY(0); }
+
+/* ============ CONTEÚDO DUPLO ============ */
+.conteudo-duplo {
+    display: grid; grid-template-columns: 1.5fr 1fr;
+    gap: 3rem; align-items: center; margin-top: 2rem;
+}
+
+.texto p { margin-bottom: 1.2rem; font-size: 1.05rem; color: #333; }
+
+.destaques-inline {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-top: 2rem;
+}
+
+.destaque-item {
+    padding: 1rem; background: var(--cinza-claro);
+    border-left: 4px solid var(--dourado); border-radius: 8px;
+}
+
+.destaque-item strong {
+    display: block; color: var(--preto); margin-bottom: 0.3rem;
+}
+
+.destaque-item span { font-size: 0.85rem; color: var(--cinza); }
+
+.destaque blockquote {
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-escuro));
+    color: var(--preto); padding: 2.5rem;
+    border-radius: 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 1.3rem;
+    box-shadow: 0 15px 40px rgba(245, 197, 66, 0.3);
+    position: relative;
+}
+
+.destaque blockquote::before {
+    content: '"'; position: absolute;
+    top: -10px; left: 20px; font-size: 5rem;
+    color: rgba(0,0,0,0.1); font-family: serif;
+}
+
+.destaque cite {
+    display: block; margin-top: 1rem;
+    font-size: 0.95rem; font-style: normal; font-weight: 700;
+}
+
+/* ============ CONCEITOS ============ */
+.conceitos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem; margin-top: 2rem;
+}
+
+.conceito {
+    background: var(--branco); padding: 2rem;
+    border-radius: 15px; box-shadow: var(--sombra);
+    transition: var(--transicao);
+    border-bottom: 4px solid transparent;
+}
+
+.conceito:hover {
+    transform: translateY(-5px);
+    border-bottom-color: var(--dourado);
+    box-shadow: var(--sombra-forte);
+}
+
+.conceito-icon { font-size: 2rem; margin-bottom: 1rem; }
+.conceito h3 { margin-bottom: 0.8rem; color: var(--preto); }
+.conceito p { color: var(--cinza); font-size: 0.95rem; }
+
+/* ============ CARDS ============ */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(245, 197, 66, 0.2);
+    padding: 2rem; border-radius: 15px;
+    transition: var(--transicao);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--dourado);
+    background: rgba(245, 197, 66, 0.08);
+    box-shadow: 0 20px 40px rgba(245, 197, 66, 0.15);
+}
+
+.card .icone { font-size: 2.5rem; margin-bottom: 1rem; }
+.card h3 { color: var(--dourado); margin-bottom: 0.8rem; font-size: 1.15rem; }
+.card p { color: #bbb; font-size: 0.95rem; }
+
+/* ============ ESTATÍSTICAS ============ */
+.estatisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem; text-align: center;
+}
+
+.stat {
+    background: var(--branco); padding: 2.5rem 1.5rem;
+    border-radius: 15px; box-shadow: var(--sombra);
+    border-top: 4px solid var(--dourado);
+    transition: var(--transicao);
+}
+
+.stat:hover { transform: translateY(-8px); box-shadow: var(--sombra-forte); }
+
+.numero {
+    font-size: 3.5rem; font-weight: 800;
+    color: var(--preto); font-family: 'Playfair Display', serif;
+}
+
+.sufixo { font-size: 2rem; color: var(--dourado); font-weight: 700; }
+.stat p { margin-top: 0.8rem; color: var(--cinza); font-size: 0.95rem; }
+.grafico-legenda { text-align: center; margin-top: 2rem; color: var(--cinza); font-size: 0.85rem; }
+
+/* ============ TIMELINE ============ */
+.timeline {
+    position: relative; max-width: 900px;
+    margin: 2rem auto 0; padding: 2rem 0;
+}
+
+.timeline::before {
+    content: ''; position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, transparent, var(--dourado), transparent);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative; width: 50%;
+    padding: 1.5rem 2.5rem; margin-bottom: 2rem;
+}
+
+.timeline-item:nth-child(odd) { left: 0; text-align: right; }
+.timeline-item:nth-child(even) { left: 50%; text-align: left; }
+
+.timeline-dot {
+    position: absolute; top: 2rem;
+    width: 18px; height: 18px;
+    background: var(--dourado);
+    border: 4px solid var(--cinza-claro);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(245, 197, 66, 0.3);
+    z-index: 2;
+}
+
+.timeline-item:nth-child(odd) .timeline-dot { right: -9px; }
+.timeline-item:nth-child(even) .timeline-dot { left: -9px; }
+
+.timeline-content {
+    background: var(--branco); padding: 1.5rem;
+    border-radius: 12px; box-shadow: var(--sombra);
+    transition: var(--transicao);
+}
+
+.timeline-content:hover { transform: scale(1.03); box-shadow: var(--sombra-forte); }
+
+.timeline-content .ano {
+    display: inline-block; background: var(--dourado);
+    color: var(--preto); padding: 0.2rem 0.8rem;
+    border-radius: 50px; font-weight: 700;
+    font-size: 0.85rem; margin-bottom: 0.8rem;
+}
+
+.timeline-content h3 { margin-bottom: 0.5rem; color: var(--preto); }
+.timeline-content p { color: var(--cinza); font-size: 0.95rem; }
+
+/* ============ PERSONALIDADES ============ */
+.personalidades {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem; margin-top: 2rem;
+}
+
+.personalidade {
+    background: rgba(255,255,255,0.04);
+    padding: 2rem 1.5rem; border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(245, 197, 66, 0.2);
+    transition: var(--transicao);
+}
+
+.personalidade:hover {
+    transform: translateY(-8px);
+    border-color: var(--dourado);
+    background: rgba(245, 197, 66, 0.08);
+}
+
+.avatar {
+    font-size: 2.5rem; margin-bottom: 1rem;
+    width: 70px; height: 70px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem;
+    background: rgba(245, 197, 66, 0.15);
+    border-radius: 50%; border: 2px solid var(--dourado);
+}
+
+.personalidade h3 { color: var(--dourado); font-size: 1.05rem; margin-bottom: 0.6rem; }
+.personalidade p { color: #bbb; font-size: 0.9rem; }
+
+/* ============ COMBATE ============ */
+.lista-combate {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem; margin-top: 2rem;
+}
+
+.item-combate {
+    display: flex; gap: 1.2rem;
+    background: var(--branco); padding: 1.8rem;
+    border-radius: 12px;
+    border-left: 5px solid var(--dourado);
+    box-shadow: var(--sombra);
+    transition: var(--transicao);
+}
+
+.item-combate:hover { transform: translateX(5px); box-shadow: var(--sombra-forte); }
+
+.check {
+    color: var(--dourado); font-size: 1.5rem; font-weight: bold;
+    flex-shrink: 0; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(245, 197, 66, 0.15); border-radius: 50%;
+}
+
+.item-combate h4 { color: var(--preto); margin-bottom: 0.4rem; font-size: 1.05rem; }
+.item-combate p { color: var(--cinza); font-size: 0.92rem; }
+
+/* ============ TABS / RECURSOS ============ */
+.tabs {
+    display: flex; justify-content: center;
+    gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+}
+
+.tab-btn {
+    padding: 0.8rem 1.5rem; background: var(--branco);
+    border: 2px solid transparent; border-radius: 50px;
+    cursor: pointer; font-family: inherit;
+    font-size: 0.95rem; font-weight: 600;
+    color: var(--preto); transition: var(--transicao);
+    box-shadow: var(--sombra);
+}
+
+.tab-btn:hover { border-color: var(--dourado); transform: translateY(-2px); }
+.tab-btn.ativo { background: var(--preto); color: var(--dourado); border-color: var(--preto); }
+
+.tab-content {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem; animation: fadeIn 0.5s ease;
+}
+
+.tab-content.ativo { display: grid; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.recurso {
+    background: var(--branco); padding: 1.3rem 1.5rem;
+    border-radius: 10px; box-shadow: var(--sombra);
+    border-left: 4px solid var(--dourado);
+    font-size: 0.95rem; transition: var(--transicao);
+}
+
+.recurso:hover { transform: translateX(5px); box-shadow: var(--sombra-forte); }
+.recurso strong { color: var(--preto); }
+
+/* ============ CANAIS DE APOIO ============ */
+.canais {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem; margin-top: 2rem;
+}
+
+.canal {
+    background: var(--branco); padding: 2rem 1.5rem;
+    border-radius: 15px; box-shadow: var(--sombra);
+    text-align: center; transition: var(--transicao);
+    border-top: 4px solid transparent;
+}
+
+.canal:hover {
+    transform: translateY(-8px);
+    border-top-color: var(--dourado);
+    box-shadow: var(--sombra-forte);
+}
+
+.canal-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.canal h3 { color: var(--preto); margin-bottom: 0.8rem; font-size: 1.1rem; }
+.canal p { color: var(--cinza); font-size: 0.92rem; }
+
+/* ============ QUIZ ============ */
+.quiz-container {
+    max-width: 700px; margin: 2rem auto 0;
+    background: rgba(255,255,255,0.05);
+    padding: 2.5rem; border-radius: 20px;
+    border: 1px solid rgba(245, 197, 66, 0.3);
+}
+
+.quiz-progress {
+    height: 6px; background: rgba(255,255,255,0.1);
+    border-radius: 3px; overflow: hidden; margin-bottom: 2rem;
+}
+
+.quiz-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--dourado), var(--dourado-escuro));
+    width: 0%; transition: width 0.4s ease;
+}
+
+.quiz-pergunta {
+    font-size: 1.3rem; color: var(--branco);
+    margin-bottom: 1.5rem; font-weight: 600;
+}
+
+.quiz-opcoes { display: flex; flex-direction: column; gap: 0.8rem; }
+
+.quiz-opcao {
+    padding: 1rem 1.5rem;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(245, 197, 66, 0.2);
+    border-radius: 12px; color: var(--branco);
+    font-family: inherit; font-size: 1rem;
+    text-align: left; cursor: pointer;
+    transition: var(--transicao);
+}
+
+.quiz-opcao:hover {
+    border-color: var(--dourado);
+    background: rgba(245, 197, 66, 0.1);
+    transform: translateX(5px);
+}
+
+.quiz-opcao.correta {
+    background: rgba(39, 174, 96, 0.2);
+    border-color: var(--verde); color: #9bffbb;
+}
+
+.quiz-opcao.errada {
+    background: rgba(192, 57, 43, 0.2);
+    border-color: var(--vermelho); color: #ffb3aa;
+}
+
+.quiz-resultado { text-align: center; padding: 1rem; }
+
+.quiz-resultado h3 {
+    color: var(--dourado); font-size: 1.8rem;
+    margin-bottom: 1rem; font-family: 'Playfair Display', serif;
+}
+
+.quiz-resultado p { color: var(--branco); font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+.quiz-resultado .score {
+    font-size: 4rem; color: var(--dourado);
+    font-weight: 800; font-family: 'Playfair Display', serif;
+    margin-bottom: 0.5rem;
+}
+
+/* ============ FRASE FINAL ============ */
+.frase-final {
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-escuro));
+    color: var(--preto); text-align: center;
+    padding: 6rem 5%; position: relative; overflow: hidden;
+}
+
+.frase-final::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(0,0,0,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(0,0,0,0.05) 0%, transparent 50%);
+}
+
+.frase-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+
+.frase-final h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem; font-weight: 900;
+}
+
+.frase-final p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem; }
+.frase-icones { font-size: 1.8rem; letter-spacing: 8px; }
+
+/* ============ FOOTER ============ */
+footer { background: var(--preto); color: #999; padding: 4rem 5% 1.5rem; }
+
+.footer-content {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem; max-width: 1200px; margin: 0 auto 3rem;
+}
+
+.footer-col h3 { color: var(--dourado); margin-bottom: 1rem; font-size: 1.2rem; }
+.footer-col h4 { color: var(--dourado); margin-bottom: 1rem; font-size: 1rem; }
+.footer-col p { font-size: 0.92rem; line-height: 1.7; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.6rem; font-size: 0.92rem; }
+
+.footer-col ul a {
+    color: #999; text-decoration: none; transition: var(--transicao);
+}
+
+.footer-col ul a:hover { color: var(--dourado); padding-left: 5px; }
+
+.footer-bottom {
+    text-align: center; padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.85rem; max-width: 1200px; margin: 0 auto;
+}
+
+/* ============ BOTÃO VOLTAR TOPO ============ */
+.voltar-topo {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--dourado); color: var(--preto);
+    border: none; font-size: 1.5rem; font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(245, 197, 66, 0.4);
+    opacity: 0; pointer-events: none;
+    transition: var(--transicao); z-index: 999;
+}
+
+.voltar-topo.visivel { opacity: 1; pointer-events: all; }
+
+.voltar-topo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(245, 197, 66, 0.6);
+}
+
+/* ============ RESPONSIVO ============ */
+@media (max-width: 992px) {
+    .footer-content { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle { display: flex; }
+
+    .nav-links {
+        display: none; position: absolute;
+        top: 100%; left: 0; width: 100%;
+        background: var(--preto);
+        flex-direction: column;
+        padding: 2rem 5%; gap: 1.2rem;
+        border-top: 1px solid rgba(245, 197, 66, 0.3);
+    }
+
+    .nav-links.ativo { display: flex; }
+
+    .conteudo-duplo { grid-template-columns: 1fr; }
+    .destaques-inline { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    .hero-stats strong { font-size: 1.5rem; }
+    .hero-stats span { font-size: 0.75rem; }
+
+    .timeline::before { left: 20px; }
+
+    .timeline-item {
+        width: 100%; padding-left: 60px;
+        padding-right: 0; text-align: left !important;
+        left: 0 !important;
+    }
+
+    .timeline-dot { left: 11px !important; right: auto !important; }
+
+    .footer-content { grid-template-columns: 1fr; text-align: center; }
+
+    .voltar-topo { bottom: 20px; right: 20px; width: 45px; height: 45px; }
+
+    .quiz-container { padding: 1.5rem; }
+    .quiz-pergunta { font-size: 1.1rem; }
+}
+
+@media (max-width: 480px) {
+    .secao { padding: 4rem 5%; }
+    .hero-botoes { flex-direction: column; width: 100%; }
+    .btn { width: 100%; text-align: center; }
+    .hero-stats { flex-direction: column; gap: 1rem; }
+    .frase-icones { font-size: 1.2rem; letter-spacing: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- BARRA DE PROGRESSO -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAVEGAÇÃO -->
+<header id="header">
+    <nav class="navbar">
+        <a href="#inicio" class="logo">
+            <span class="logo-icon">✊🏿</span>
+            <span class="logo-text">Consciência</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#o-que-e">O que é</a></li>
+            <li><a href="#tipos">Tipos</a></li>
+            <li><a href="#dados">Dados</a></li>
+            <li><a href="#historia">História</a></li>
+            <li><a href="#combate">Combate</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#apoio">Apoio</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section id="inicio" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <span class="hero-tag">Consciência • Respeito • Igualdade</span>
+        <h1>Racismo</h1>
+        <p class="subtitulo">Entender é o primeiro passo para combater</p>
+        <p class="hero-texto">
+            O racismo é uma ferida social que precisa ser reconhecida, 
+            discutida e combatida por todos nós. Informação gera consciência. 
+            Consciência gera mudança. Mudança gera justiça.
+        </p>
+        <div class="hero-botoes">
+            <a href="#o-que-e" class="btn btn-primario">Começar a Jornada</a>
+            <a href="#quiz" class="btn btn-secundario">Testar Conhecimento</a>
+        </div>
+        <div class="hero-stats">
+            <div><strong>56%</strong><span>Brasileiros negros</span></div>
+            <div><strong>75%</strong><span>Vítimas de homicídio</span></div>
+            <div><strong>0</strong><span>Tolerância ao racismo</span></div>
+        </div>
+    </div>
+    <div class="scroll-indicator"><span></span></div>
+</section>
+
+<!-- O QUE É -->
+<section id="o-que-e" class="secao">
+    <div class="container">
+        <span class="section-tag">Fundamentos</span>
+        <h2>O que é Racismo?</h2>
+        <div class="conteudo-duplo">
+            <div class="texto animar">
+                <p>
+                    O <strong>racismo</strong> é a crença de que existem raças 
+                    superiores e inferiores, e o conjunto de práticas, atitudes 
+                    e políticas que discriminam pessoas com base em sua cor, 
+                    etnia ou origem.
+                </p>
+                <p>
+                    No Brasil, o racismo é <strong>estrutural</strong>: ele está 
+                    enraizado nas instituições, na cultura e nas relações sociais, 
+                    mesmo que muitas vezes apareça de forma velada.
+                </p>
+                <p>
+                    Racismo não é "opinião" nem "brincadeira". É crime, previsto 
+                    na <strong>Lei 7.716/1989</strong>, e causa danos psicológicos, 
+                    sociais e econômicos profundos.
+                </p>
+                <div class="destaques-inline">
+                    <div class="destaque-item">
+                        <strong>Lei 7.716/89</strong>
+                        <span>Define crimes resultantes de preconceito</span>
+                    </div>
+                    <div class="destaque-item">
+                        <strong>Lei 12.288/10</strong>
+                        <span>Estatuto da Igualdade Racial</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destaque animar">
+                <blockquote>
+                    "Ninguém nasce odiando outra pessoa pela cor de sua pele, 
+                    ou por sua origem, ou sua religião."
+                    <cite>— Nelson Mandela</cite>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONCEITOS -->
+<section class="secao secao-cinza">
+    <div class="container">
+        <span class="section-tag">Aprofundando</span>
+        <h2>Conceitos Importantes</h2>
+        <div class="conceitos">
+            <div class="conceito animar">
+                <div class="conceito-icon">🎯</div>
+                <h3>Preconceito</h3>
+                <p>Julgamento prévio e negativo sobre alguém baseado em sua cor, etnia ou origem, sem conhecimento real.</p>
+            </div>
+            <div class="conceito animar">
+                <div class="conceito-icon">⚡</div>
+                <h3>Discriminação</h3>
+                <p>Ação concreta de tratar alguém de forma desigual por conta de seu pertencimento racial.</p>
+            </div>
+            <div class="conceito animar">
+                <div class="conceito-icon">🏛️</div>
+                <h3>Racismo Estrutural</h3>
+                <p>Sistema enraizado que privilegia um grupo racial em detrimento de outro nas instituições.</p>
+            </div>
+            <div class="conceito animar">
+                <div class="conceito-icon">🎭</div>
+                <h3>Colorismo</h3>
+                <p>Discriminação baseada no tom da pele, mesmo dentro do mesmo grupo racial.</p>
+            </div>
+            <div class="conceito animar">
+                <div class="conceito-icon">🗣️</div>
+                <h3>Microagressões</h3>
+                <p>Comentários sutis e cotidianos que reforçam estereótipos e causam dor.</p>
+            </div>
+            <div class="conceito animar">
+                <div class="conceito-icon">🌍</div>
+                <h3>Xenofobia</h3>
+                <p>Aversão a pessoas de outras nacionalidades ou regiões, frequentemente ligada ao racismo.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TIPOS -->
+<section id="tipos" class="secao secao-escura">
+    <div class="container">
+        <span class="section-tag">Manifestações</span>
+        <h2>Formas de Racismo</h2>
+        <p class="intro">O racismo se manifesta de várias formas. Reconhecê-las é essencial para combatê-las.</p>
+        <div class="cards">
+            <div class="card animar">
+                <div class="icone">🔗</div>
+                <h3>Racismo Estrutural</h3>
+                <p>Enraizado nas instituições e na sociedade. Manifesta-se na desigualdade de acesso a educação, saúde, emprego e justiça.</p>
+            </div>
+            <div class="card animar">
+                <div class="icone">💬</div>
+                <h3>Racismo Individual</h3>
+                <p>Atitudes e comportamentos pessoais de discriminação, muitas vezes disfarçados de "brincadeira" ou "opinião".</p>
+            </div>
+            <div class="card animar">
+                <div class="icone">🏛️</div>
+                <h3>Racismo Institucional</h3>
+                <p>Quando organizações, empresas ou órgãos públicos falham em garantir direitos iguais para todos.</p>
+            </div>
+            <div class="card animar">
+                <div class="icone">🎭</div>
+                <h3>Racismo Recreativo</h3>
+                <p>Piadas, apelidos e "humor" que reforçam estereótipos. Não é brincadeira: é violência.</p>
+            </div>
+            <div class="card animar">
+                <div class="icone">🌐</div>
+                <h3>Racismo Cultural</h3>
+                <p>Desvalorização de culturas, religiões e tradições de origem africana e indígena.</p>
+            </div>
+            <div class="card animar">
+                <div class="icone">📱</div>
+                <h3>Racismo Digital</h3>
+                <p>Ataques, discursos de ódio e exclusão em ambientes virtuais e redes sociais.</p>
+            </div>
+            <div class="card animar">
+                <div class="icone">⚖️</div>
+                <h3>Racismo Ambiental</h3>
+                <p>Populações negras e indígenas são mais afetadas por desastres e poluição ambiental.</p>
+            </div>
+            <div class="card animar">
+                <div class="icone">🩺</div>
+                <h3>Racismo na Saúde</h3>
+                <p>Atendimento desigual, diagnósticos tardios e menos acesso a tratamentos adequados.</p>
+            </div>
+            <div class="card animar">
+                <div class="icone">🎓</div>
+                <h3>Racismo Educacional</h3>
+                <p>Exclusão, silenciamento e invisibilidade da história e cultura afro-brasileira nas escolas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DADOS -->
+<section id="dados" class="secao">
+    <div class="container">
+        <span class="section-tag">Realidade</span>
+        <h2>Racismo em Números</h2>
+        <p class="intro">Dados que mostram a urgência do debate:</p>
+        <div class="estatisticas">
+            <div class="stat animar">
+                <span class="numero" data-target="56">0</span><span class="sufixo">%</span>
+                <p>da população brasileira é negra (preta ou parda) — IBGE</p>
+            </div>
+            <div class="stat animar">
+                <span class="numero" data-target="75">0</span><span class="sufixo">%</span>
+                <p>das vítimas de homicídio no Brasil são negras — Atlas da Violência</p>
+            </div>
+            <div class="stat animar">
+                <span class="numero" data-target="3">0</span><span class="sufixo">x</span>
+                <p>mais chances de serem abordados pela polícia</p>
+            </div>
+            <div class="stat animar">
+                <span class="numero" data-target="30">0</span><span class="sufixo">%</span>
+                <p>menos salário em média para trabalhadores negros</p>
+            </div>
+            <div class="stat animar">
+                <span class="numero" data-target="68">0</span><span class="sufixo">%</span>
+                <p>dos desempregados no Brasil são negros — IBGE</p>
+            </div>
+            <div class="stat animar">
+                <span class="numero" data-target="40">0</span><span class="sufixo">%</span>
+                <p>menor expectativa de vida em algumas regiões</p>
+            </div>
+        </div>
+        <div class="grafico-legenda">
+            <p><em>Fontes: IBGE, IPEA, Atlas da Violência, Fórum Brasileiro de Segurança Pública</em></p>
+        </div>
+    </div>
+</section>
+
+<!-- LINHA DO TEMPO -->
+<section id="historia" class="secao secao-cinza">
+    <div class="container">
+        <span class="section-tag">Memória</span>
+        <h2>Linha do Tempo da Luta Racial no Brasil</h2>
+        <p class="intro">Momentos históricos que marcaram a resistência negra</p>
+        <div class="timeline">
+            <div class="timeline-item animar">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="ano">1500-1888</span>
+                    <h3>Escravidão</h3>
+                    <p>Mais de 4 milhões de africanos foram traficados para o Brasil. A escravidão durou quase 4 séculos.</p>
+                </div>
+            </div>
+            <div class="timeline-item animar">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="ano">1888</span>
+                    <h3>Abolição</h3>
+                    <p>Lei Áurea é assinada, mas sem políticas de inclusão, deixando a população negra em vulnerabilidade.</p>
+                </div>
+            </div>
+            <div class="timeline-item animar">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="ano">1931</span>
+                    <h3>Frente Negra Brasileira</h3>
+                    <p>Uma das primeiras organizações negras do país, lutando por direitos civis.</p>
+                </div>
+            </div>
+            <div class="timeline-item animar">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="ano">1978</span>
+                    <h3>Movimento Negro Unificado</h3>
+                    <p>Surge em São Paulo como marco da luta organizada contra o racismo.</p>
+                </div>
+            </div>
+            <div class="timeline-item animar">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="ano">1989</span>
+                    <h3>Lei Caó</h3>
+                    <p>Lei 7.716/89 torna o racismo crime inafiançável e imprescritível.</p>
+                </div>
+            </div>
+            <div class="timeline-item animar">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="ano">2003</span>
+                    <h3>Lei 10.639</h3>
+                    <p>Ensino de história e cultura afro-brasileira torna-se obrigatório nas escolas.</p>
+                </div>
+            </div>
+            <div class="timeline-item animar">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="ano">2012</span>
+                    <h3>Lei de Cotas</h3>
+                    <p>Lei 12.711 reserva vagas em universidades federais para alunos negros e de escolas públicas.</p>
+                </div>
+            </div>
+            <div class="timeline-item animar">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="ano">2020</span>
+                    <h3>Vidas Negras Importam</h3>
+                    <p>Movimento global ganha força e mobiliza debates no Brasil sobre violência policial.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PERSONALIDADES -->
+<section class="secao secao-escura">
+    <div class="container">
+        <span class="section-tag">Inspiração</span>
+        <h2>Personalidades que Marcaram a História</h2>
+        <p class="intro">Vozes que lutaram e continuam inspirando</p>
+        <div class="personalidades">
+            <div class="personalidade animar">
+                <div class="avatar">🌹</div>
+                <h3>Zumbi dos Palmares</h3>
+                <p>Líder do Quilombo dos Palmares, símbolo da resistência negra no Brasil colonial.</p>
+            </div>
+            <div class="personalidade animar">
+                <div class="avatar">✍️</div>
+                <h3>Machado de Assis</h3>
+                <p>Um dos maiores escritores brasileiros, fundador da Academia Brasileira de Letras.</p>
+            </div>
+            <div class="personalidade animar">
+                <div class="avatar">🎤</div>
+                <h3>Milton Santos</h3>
+                <p>Geógrafo reconhecido mundialmente, pioneiro nos estudos sobre desigualdade urbana.</p>
+            </div>
+            <div class="personalidade animar">
+                <div class="avatar">🎭</div>
+                <h3>Abdias Nascimento</h3>
+                <p>Ativista, ator, poeta e político. Pioneiro na luta pelos direitos da população negra.</p>
+            </div>
+            <div class="personalidade animar">
+                <div class="avatar">📚</div>
+                <h3>Carolina Maria de Jesus</h3>
+                <p>Escritora, autora de "Quarto de Despejo", retrato da vida nas favelas brasileiras.</p>
+            </div>
+            <div class="personalidade animar">
+                <div class="avatar">⚖️</div>
+                <h3>Benedita da Silva</h3>
+                <p>Primeira mulher negra a ocupar o Senado Federal e o governo de um estado.</p>
+            </div>
+            <div class="personalidade animar">
+                <div class="avatar">👩🏿‍🏫</div>
+                <h3>Djamila Ribeiro</h3>
+                <p>Filósofa e escritora contemporânea, referência no feminismo negro brasileiro.</p>
+            </div>
+            <div class="personalidade animar">
+                <div class="avatar">🏃🏿</div>
+                <h3>Marta Silva</h3>
+                <p>Eleita seis vezes a melhor jogadora de futebol do mundo, ícone do esporte brasileiro.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMO COMBATER -->
+<section id="combate" class="secao">
+    <div class="container">
+        <span class="section-tag">Ação</span>
+        <h2>Como Combater o Racismo</h2>
+        <p class="intro">Atitudes práticas que transformam realidades</p>
+        <div class="lista-combate">
+            <div class="item-combate animar">
+                <span class="check">✓</span>
+                <div>
+                    <h4>Eduque-se continuamente</h4>
+                    <p>Leia autores negros, assista documentários, estude a história afro-brasileira e africana.</p>
+                </div>
+            </div>
+            <div class="item-combate animar">
+                <span class="check">✓</span>
+                <div>
+                    <h4>Não se cale</h4>
+                    <p>Interrompa piadas racistas. Denuncie. A omissão também é uma forma de violência.</p>
+                </div>
+            </div>
+            <div class="item-combate animar">
+                <span class="check">✓</span>
+                <div>
+                    <h4>Apoie políticas afirmativas</h4>
+                    <p>Cotas, programas de inclusão e ações que corrigem desigualdades históricas.</p>
+                </div>
+            </div>
+            <div class="item-combate animar">
+                <span class="check">✓</span>
+                <div>
+                    <h4>Valorize a cultura negra</h4>
+                    <p>Música, arte, literatura, religião e conhecimento de matriz africana.</p>
+                </div>
+            </div>
+            <div class="item-combate animar">
+                <span class="check">✓</span>
+                <div>
+                    <h4>Denuncie sempre</h4>
+                    <p>Ligue 100 (Direitos Humanos) ou registre boletim de ocorrência. Racismo é crime.</p>
+                </div>
+            </div>
+            <div class="item-combate animar">
+                <span class="check">✓</span>
+                <div>
+                    <h4>Escute com atenção</h4>
+                    <p>Dê espaço para pessoas negras falarem sobre suas vivências. Não minimize dores.</p>
+                </div>
+            </div>
+            <div class="item-combate animar">
+                <span class="check">✓</span>
+                <div>
+                    <h4>Revise seus privilégios</h4>
+                    <p>Reconheça vantagens que você tem e use sua voz para amplificar outras.</p>
+                </div>
+            </div>
+            <div class="item-combate animar">
+                <span class="check">✓</span>
+                <div>
+                    <h4>Contrate e promova diversidade</h4>
+                    <p>Ambientes diversos são mais justos, criativos e produtivos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RECURSOS -->
+<section id="recursos" class="secao secao-cinza">
+    <div class="container">
+        <span class="section-tag">Para Aprender</span>
+        <h2>Recursos Recomendados</h2>
+        <div class="tabs">
+            <button class="tab-btn ativo" data-tab="livros">📚 Livros</button>
+            <button class="tab-btn" data-tab="filmes">🎬 Filmes</button>
+            <button class="tab-btn" data-tab="podcasts">🎙️ Podcasts</button>
+            <button class="tab-btn" data-tab="series">📺 Séries</button>
+        </div>
+
+        <div class="tab-content ativo" id="livros">
+            <div class="recurso"><strong>Quarto de Despejo</strong> — Carolina Maria de Jesus</div>
+            <div class="recurso"><strong>Pequeno Manual Antirracista</strong> — Djamila Ribeiro</div>
+            <div class="recurso"><strong>Torto Arado</strong> — Itamar Vieira Junior</div>
+            <div class="recurso"><strong>O Genocídio do Negro Brasileiro</strong> — Abdias Nascimento</div>
+            <div class="recurso"><strong>Memórias da Plantação</strong> — Grada Kilomba</div>
+            <div class="recurso"><strong>Racismo Estrutural</strong> — Silvio Almeida</div>
+        </div>
+        <div class="tab-content" id="filmes">
+            <div class="recurso"><strong>Moonlight</strong> — Barry Jenkins</div>
+            <div class="recurso"><strong>12 Anos de Escravidão</strong> — Steve McQueen</div>
+            <div class="recurso"><strong>Estrelas Além do Tempo</strong> — Theodore Melfi</div>
+            <div class="recurso"><strong>Corra!</strong> — Jordan Peele</div>
+            <div class="recurso"><strong>Pantera Negra</strong> — Ryan Coogler</div>
+            <div class="recurso"><strong>Selma</strong> — Ava DuVernay</div>
+        </div>
+        <div class="tab-content" id="podcasts">
+            <div class="recurso"><strong>Mamilos</strong> — Diversidade e política</div>
+            <div class="recurso"><strong>Negra Voz</strong> — Vozes negras brasileiras</div>
+            <div class="recurso"><strong>Angu de Grão</strong> — Cultura e resistência</div>
+            <div class="recurso"><strong>AfroPai</strong> — Paternidade negra</div>
+            <div class="recurso"><strong>Vozes Negras</strong> — Protagonismo negro</div>
+        </div>
+        <div class="tab-content" id="series">
+            <div class="recurso"><strong>Olhos que Condenam</strong> — Netflix</div>
+            <div class="recurso"><strong>Dear White People</strong> — Netflix</div>
+            <div class="recurso"><strong>When They See Us</strong> — Ava DuVernay</div>
+            <div class="recurso"><strong>I May Destroy You</strong> — Michaela Coel</div>
+            <div class="recurso"><strong>Atlanta</strong> — Donald Glover</div>
+        </div>
+    </div>
+</section>
+
+<!-- APOIO -->
+<section id="apoio" class="secao">
+    <div class="container">
+        <span class="section-tag">Ajuda</span>
+        <h2>Precisa de Ajuda ou Quer Denunciar?</h2>
+        <p class="intro">Canais oficiais para denúncia e apoio emocional</p>
+        <div class="canais">
+            <div class="canal animar">
+                <div class="canal-icon">📞</div>
+                <h3>Disque 100</h3>
+                <p>Direitos Humanos — denúncias de racismo, 24h, gratuito e anônimo</p>
+            </div>
+            <div class="canal animar">
+                <div class="canal-icon">⚖️</div>
+                <h3>Ministério Público</h3>
+                <p>Procure a Promotoria de Direitos Humanos do seu estado</p>
+            </div>
+            <div class="canal animar">
+                <div class="canal-icon">🚔</div>
+                <h3>Delegacias Especializadas</h3>
+                <p>Muitas cidades possuem delegacias de crimes raciais</p>
+            </div>
+            <div class="canal animar">
+                <div class="canal-icon">💚</div>
+                <h3>CVV — 188</h3>
+                <p>Apoio emocional gratuito 24h para quem sofre com violência racial</p>
+            </div>
+            <div class="canal animar">
+                <div class="canal-icon">🌐</div>
+                <h3>SaferNet Brasil</h3>
+                <p>Denúncias de racismo e discurso de ódio na internet</p>
+            </div>
+            <div class="canal animar">
+                <div class="canal-icon">👥</div>
+                <h3>Defensoria Pública</h3>
+                <p>Assistência jurídica gratuita para vítimas de racismo</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="secao secao-escura">
+    <div class="container">
+        <span class="section-tag">Interativo</span>
+        <h2>Teste seus Conhecimentos</h2>
+        <p class="intro">Responda as perguntas e descubra o quanto você sabe sobre o tema</p>
+        <div class="quiz-container">
+            <div class="quiz-progress">
+                <div class="quiz-progress-bar" id="quizProgress"></div>
+            </div>
+            <div id="quizContent"></div>
+        </div>
+    </div>
+</section>
+
+<!-- FRASE FINAL -->
+<section class="frase-final">
+    <div class="frase-content">
+        <h2>"Vidas Negras Importam"</h2>
+        <p>Combater o racismo é responsabilidade de todos. A mudança começa com consciência.</p>
+        <div class="frase-icones">✊🏿 ✊🏾 ✊🏽 ✊🏼 ✊🏻</div>
+    </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <h3>✊🏿 Consciência</h3>
+            <p>Site educativo dedicado a informar, conscientizar e mobilizar contra o racismo em todas as suas formas.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Navegação</h4>
+            <ul>
+                <li><a href="#o-que-e">O que é racismo</a></li>
+                <li><a href="#tipos">Tipos de racismo</a></li>
+                <li><a href="#dados">Dados e estatísticas</a></li>
+                <li><a href="#combate">Como combater</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Denuncie</h4>
+            <ul>
+                <li>Disque 100 — Direitos Humanos</li>
+                <li>CVV 188 — Apoio emocional</li>
+                <li>Polícia 190 — Emergências</li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Compartilhe</h4>
+            <p>Informação é a arma mais poderosa contra o racismo.</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Consciência Negra • Site educativo sem fins lucrativos</p>
+    </div>
+</footer>
+
+<!-- BOTÃO VOLTAR AO TOPO -->
+<button class="voltar-topo" id="voltarTopo" aria-label="Voltar ao topo">↑</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ============ BARRA DE PROGRESSO ============
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progresso = (scrollTop / docHeight) * 100;
+        progressBar.style.width = progresso + '%';
+    });
+
+    // ============ HEADER SCROLL ============
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) header.classList.add('rolado');
+        else header.classList.remove('rolado');
+    });
+
+    // ============ MENU MOBILE ============
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('ativo');
+        menuToggle.classList.toggle('ativo');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('ativo');
+            menuToggle.classList.remove('ativo');
+        });
+    });
+
+    // ============ SCROLL SUAVE ============
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                e.preventDefault();
+                const offset = 80;
+                const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // ============ BOTÃO VOLTAR AO TOPO ============
+    const voltarTopo = document.getElementById('voltarTopo');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) voltarTopo.classList.add('visivel');
+        else voltarTopo.classList.remove('visivel');
+    });
+
+    voltarTopo.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ============ ANIMAÇÃO DE SCROLL ============
+    const observerAnimar = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visivel');
+                observerAnimar.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.animar').forEach(el => observerAnimar.observe(el));
+
+    // ============ ANIMAÇÃO DOS NÚMEROS ============
+    const numeros = document.querySelectorAll('.numero');
+    const observerNum = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.target);
+                let atual = 0;
+                const incremento = target / 66;
+                const timer = setInterval(() => {
+                    atual += incremento;
+                    if (atual >= target) {
+                        el.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        el.textContent = Math.floor(atual);
+                    }
+                }, 30);
+                observerNum.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    numeros.forEach(num => observerNum.observe(num));
+
+    // ============ TABS DE RECURSOS ============
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.dataset.tab;
+            tabBtns.forEach(b => b.classList.remove('ativo'));
+            tabContents.forEach(c => c.classList.remove('ativo'));
+            btn.classList.add('ativo');
+            document.getElementById(tabId).classList.add('ativo');
+        });
+    });
+
+    // ============ QUIZ ============
+    const perguntas = [
+        { pergunta: "O que é racismo estrutural?",
+          opcoes: ["Apenas atitudes individuais de preconceito","Um sistema enraizado nas instituições e na sociedade","Uma brincadeira sem consequências","Um problema que só existe em outros países"], correta: 1 },
+        { pergunta: "Qual lei brasileira torna o racismo crime inafiançável?",
+          opcoes: ["Lei Áurea (1888)","Lei 7.716/1989 (Lei Caó)","Constituição de 1946","Lei 10.639/2003"], correta: 1 },
+        { pergunta: "Qual a porcentagem aproximada da população brasileira que é negra (preta ou parda)?",
+          opcoes: ["Cerca de 20%","Cerca de 35%","Cerca de 56%","Cerca de 80%"], correta: 2 },
+        { pergunta: "O que é colorismo?",
+          opcoes: ["Preferência por cores vibrantes","Discriminação baseada no tom da pele","Um movimento artístico","Uma teoria racial antiga"], correta: 1 },
+        { pergunta: "O que diz a Lei 10.639/2003?",
+          opcoes: ["Criminaliza o racismo","Institui cotas raciais","Torna obrigatório o ensino de história afro-brasileira nas escolas","Cria o Estatuto da Igualdade Racial"], correta: 2 },
+        { pergunta: "O que são microagressões?",
+          opcoes: ["Agressões físicas leves","Comentários sutis e cotidianos que reforçam estereótipos","Pequenos crimes","Nada relacionado ao racismo"], correta: 1 },
+        { pergunta: "Qual canal denuncia violações de direitos humanos no Brasil?",
+          opcoes: ["Disque 190","Disque 100","Disque 180","Disque 192"], correta: 1 },
+        { pergunta: "O que é racismo recreativo?",
+          opcoes: ["Racismo em parques","Piadas e 'humor' que reforçam estereótipos raciais","Racismo na infância","Um tipo de racismo sem gravidade"], correta: 1 },
+        { pergunta: "Quem foi Zumbi dos Palmares?",
+          opcoes: ["Um imperador brasileiro","Líder do Quilombo dos Palmares e símbolo da resistência negra","Um escritor do século XX","Um político contemporâneo"], correta: 1 },
+        { pergunta: "A Lei de Cotas (12.711/2012) reserva vagas em:",
+          opcoes: ["Empresas privadas","Universidades federais e institutos federais","Escolas particulares","Concursos militares"], correta: 1 }
+    ];
+
+    let perguntaAtual = 0;
+    let acertos = 0;
+    const quizContent = document.getElementById('quizContent');
+    const quizProgressBar = document.getElementById('quizProgress');
+
+    function renderizarPergunta() {
+        const pergunta = perguntas[perguntaAtual];
+        const progresso = (perguntaAtual / perguntas.length) * 100;
+        quizProgressBar.style.width = progresso + '%';
+
+        quizContent.innerHTML = `
+            <div class="quiz-pergunta">${perguntaAtual + 1}. ${pergunta.pergunta}</div>
+            <div class="quiz-opcoes">
+                ${pergunta.opcoes.map((op, i) => `<button class="quiz-opcao" data-index="${i}">${op}</button>`).join('')}
+            </div>
+        `;
+
+        document.querySelectorAll('.quiz-opcao').forEach(btn => {
+            btn.addEventListener('click', () => selecionarResposta(parseInt(btn.dataset.index)));
+        });
+    }
+
+    function selecionarResposta(index) {
+        const pergunta = perguntas[perguntaAtual];
+        const botoes = document.querySelectorAll('.quiz-opcao');
+
+        botoes.forEach((btn, i) => {
+            btn.disabled = true;
+            if (i === pergunta.correta) btn.classList.add('correta');
+            else if (i === index && i !== pergunta.correta) btn.classList.add('errada');
+        });
+
+        if (index === pergunta.correta) acertos++;
+
+        setTimeout(() => {
+            perguntaAtual++;
+            if (perguntaAtual < perguntas.length) renderizarPergunta();
+            else mostrarResultado();
+        }, 1500);
+    }
+
+    function mostrarResultado() {
+        quizProgressBar.style.width = '100%';
+        const porcentagem = Math.round((acertos / perguntas.length) * 100);
+        let mensagem = '';
+        if (porcentagem === 100) mensagem = "Excelente! Você é um verdadeiro aliado na luta antirracista.";
+        else if (porcentagem >= 70) mensagem = "Muito bom! Continue se educando e compartilhando conhecimento.";
+        else if (porcentagem >= 50) mensagem = "Bom começo! Há espaço para aprender mais sobre o tema.";
+        else mensagem = "Que tal revisar o conteúdo do site e tentar novamente?";
+
+        quizContent.innerHTML = `
+            <div class="quiz-resultado">
+                <div class="score">${acertos}/${perguntas.length}</div>
+                <h3>${porcentagem}% de acertos</h3>
+                <p>${mensagem}</p>
+                <button class="btn btn-primario" onclick="reiniciarQuiz()">Tentar Novamente</button>
+            </div>
+        `;
+    }
+
+    window.reiniciarQuiz = function() {
+        perguntaAtual = 0;
+        acertos = 0;
+        renderizarPergunta();
+    };
+
+    if (quizContent) renderizarPergunta();
+
+    // ============ PARALLAX HERO ============
+    window.addEventListener('scroll', () => {
+        if (window.scrollY < window.innerHeight) {
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg) heroBg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+        }
+    });
+
+});
+</script>
+</body>
+</html>
